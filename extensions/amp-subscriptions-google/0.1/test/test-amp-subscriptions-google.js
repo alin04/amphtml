@@ -123,7 +123,7 @@ describes.realWin('amp-subscriptions-google', {amp: true}, env => {
       linkAccount: env.sandbox.stub(ConfiguredRuntime.prototype, 'linkAccount'),
     };
     ackStub = env.sandbox.stub(Entitlements.prototype, 'ack');
-    toggleExperiment(win, 'swg-gpay-api', true);
+    toggleExperiment(win, 'swg-exampleexperiment', true);
     toggleExperiment(win, 'nonswgexp', true);
     platform = new GoogleSubscriptionsPlatform(ampdoc, {}, serviceAdapter);
   });
@@ -131,7 +131,8 @@ describes.realWin('amp-subscriptions-google', {amp: true}, env => {
   afterEach(() => {
     serviceAdapterMock.verify();
     analyticsMock.verify();
-    toggleExperiment(win, 'swg-gpay-api', false);
+    toggleExperiment(win, 'swg-exampleexperiment', false);
+    toggleExperiment(win, 'nonswgexp', false);
   });
 
   function callback(stub) {
@@ -152,10 +153,12 @@ describes.realWin('amp-subscriptions-google', {amp: true}, env => {
     expect(platform.runtime_.doc_.ampdoc_).to.equal(ampdoc);
   });
 
-  it('should propagate experiment', () => {
-    expect(platform.runtime_.payClient_.getType()).to.equal('PAYJS');
+  it('should propagate swg experiments', () => {
     expect(platform.runtime_.config()['experiments']).to.have.members([
-      'gpay-api',
+      'exampleexperiment',
+    ]);
+    expect(platform.runtime_.config()['experiments']).to.not.have.members([
+      'nonswgexp',
     ]);
   });
 
