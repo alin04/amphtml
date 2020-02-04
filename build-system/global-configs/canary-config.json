@@ -36,6 +36,5 @@
   "ios-fixed-no-transfer": 1,
   "layoutbox-invalidate-on-scroll": 1,
   "pump-early-frame": 1,
-  "use-responsive-ads-for-responsive-sizing-in-auto-ads": 0.05,
   "version-locking": 1
 }
